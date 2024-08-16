@@ -1,0 +1,30 @@
+{
+  "name": "Kana transcription",
+  "description": "Transcribe japanese hiragana/katakana to English or Russian; convert kana from one to the other syllabary",
+  "icons": [
+    {
+      "src": "icon16.png",
+      "type": "image/png",
+      "sizes": "16x16"
+    },
+    {
+      "src": "icon32.png",
+      "type": "image/png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "icon192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "icon512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "white",
+  "background_color": "#F6F6F6"
+}
