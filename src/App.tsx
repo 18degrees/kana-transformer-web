@@ -306,10 +306,10 @@ function App() {
 					<div className='links'>
 						<div>
 							<a href='https://github.com/18degrees/kana-transcription'>
-								<img src={'/images/github-mark.png'} alt='github logo'></img>
+								<img src={process.env.PUBLIC_URL + '/images/github-mark.png'} alt='github logo'></img>
 							</a>
 							<a href='https://www.npmjs.com/package/kana-transcription'>
-								<img src={'/images/npm.png'} alt='npm logo'></img>
+								<img src={process.env.PUBLIC_URL + '/images/npm.png'} alt='npm logo'></img>
 							</a>
 						</div>
 					</div>
