@@ -322,7 +322,7 @@ function App() {
 					}
 					.result {
 						color: ${text ? '#4a4a4a' : '#a3a3a3'};
-						letter-spacing: ${text ? '2px' : 'unset'}
+						letter-spacing: ${text && operation !== 'transcribe kana' ? '2px' : 'unset'}
 					}
 
 					.non-transcribe {
