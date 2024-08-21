@@ -308,9 +308,6 @@ function App() {
 							<a href='https://github.com/18degrees/kana-transcription'>
 								<img src={process.env.PUBLIC_URL + '/images/github-mark.png'} alt='github logo'></img>
 							</a>
-							<a href='https://www.npmjs.com/package/kana-transcription'>
-								<img src={process.env.PUBLIC_URL + '/images/npm.png'} alt='npm logo'></img>
-							</a>
 						</div>
 					</div>
 				</div>

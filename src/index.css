@@ -168,9 +168,6 @@ input[type=text]::placeholder {
 .links img {
 	width: 45px
 }
-.links a:first-child {
-	margin-right: 20px
-}
 
 
 @media (max-width: 425px) {
