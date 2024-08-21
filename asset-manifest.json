@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/kana-transcription-web/static/css/main.38b98f06.css",
-    "main.js": "/kana-transcription-web/static/js/main.af459547.js",
+    "main.css": "/kana-transcription-web/static/css/main.c3f49a9b.css",
+    "main.js": "/kana-transcription-web/static/js/main.45db240b.js",
     "index.html": "/kana-transcription-web/index.html",
-    "main.38b98f06.css.map": "/kana-transcription-web/static/css/main.38b98f06.css.map",
-    "main.af459547.js.map": "/kana-transcription-web/static/js/main.af459547.js.map"
+    "main.c3f49a9b.css.map": "/kana-transcription-web/static/css/main.c3f49a9b.css.map",
+    "main.45db240b.js.map": "/kana-transcription-web/static/js/main.45db240b.js.map"
   },
   "entrypoints": [
-    "static/css/main.38b98f06.css",
-    "static/js/main.af459547.js"
+    "static/css/main.c3f49a9b.css",
+    "static/js/main.45db240b.js"
   ]
 }
