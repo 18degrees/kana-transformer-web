@@ -1,8 +1,8 @@
 {
-  "name": "kana-transcription-web",
+  "name": "kana-transformer-web",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://18degrees.github.io/kana-transcription-web",
+  "homepage": "https://18degrees.github.io/kana-transformer-web",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
