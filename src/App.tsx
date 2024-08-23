@@ -305,7 +305,7 @@ function App() {
 					</div>
 					<div className='links'>
 						<div>
-							<a href='https://github.com/18degrees/kana-tranformer'>
+							<a href='https://github.com/18degrees/kana-transformer'>
 								<img src={process.env.PUBLIC_URL + '/images/github-mark.png'} alt='github logo'></img>
 							</a>
 						</div>
