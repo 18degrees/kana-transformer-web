@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Triangle } from './components/Triangle'
 import { Arrow } from './components/Arrow'
-import {transcriptKana, transformToKana, reverseKana} from 'kana-transcription'
+import { fromKana, toKana, convertKana } from 'kana-transformer'
 
 type operationType = 'transcribe kana' | 'transform to kana' | 'convert kana'
 
@@ -153,7 +153,7 @@ function App() {
 				<div className='content'>
 					<div>
 						<div>
-							<h1>Kana transcription</h1>
+							<h1>Kana transformer</h1>
 							<div className='operation-container'>
 								<p>I want to</p>
 								<div className='option operation'>
@@ -291,13 +291,13 @@ function App() {
 							<p className='result'>
 
 								{ text ?
-									operation === 'transcribe kana' ? transcriptKana(text, system) :
-									operation === 'transform to kana' ? transformToKana(text, {
+									operation === 'transcribe kana' ? fromKana(text, system) :
+									operation === 'transform to kana' ? toKana(text, {
 										system,
 										guess,
 										toKana: kana
 									}) :
-									operation === 'convert kana' ? reverseKana(text, kana) : null
+									operation === 'convert kana' ? convertKana(text, kana) : null
 									
 								: 'The result will appear here'}
 							</p>
@@ -305,7 +305,7 @@ function App() {
 					</div>
 					<div className='links'>
 						<div>
-							<a href='https://github.com/18degrees/kana-transcription'>
+							<a href='https://github.com/18degrees/kana-tranformer'>
 								<img src={process.env.PUBLIC_URL + '/images/github-mark.png'} alt='github logo'></img>
 							</a>
 						</div>
