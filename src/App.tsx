@@ -20,7 +20,8 @@ function App() {
 	const [system, setSystem] = useState<systems>('hepburn')
 	const [guess, setGuess] = useState<boolean>(false)
 
-	const [text, setText] = useState('')
+	const [input, setInput] = useState('')
+	const [result, setResult] = useState('')
 
 	function toggleMenu(className: string) {
 		const menuElem = document.querySelector(`.${className}`)!
@@ -57,6 +58,21 @@ function App() {
 			})
 		}
 	}, [operation])
+
+	useEffect(() => {
+		setResult(() => {
+			return (
+				operation === 'transcribe kana' ? fromKana(input, system) :
+				operation === 'transform to kana' ? toKana(input, {
+					system,
+					guess,
+					toKana: kana
+				}) :
+				operation === 'convert kana' ? convertKana(input, kana) : ''
+			)
+		})
+		
+	}, [input, operation, guess, kana, system])
 
 	useEffect(() => {
 		closeMenu('option.kana')
@@ -149,169 +165,161 @@ function App() {
 
 	return (
 		<>
-			<div className='App'>
-				<div className='content'>
-					<div>
+			<header><h1>Kana transformer</h1></header>
+			<main>
+				<div className='settings'>
+					<div className='operation-container'>
+						<p>I want to</p>
+						<div className='option operation'>
+							<p onClick={() => toggleMenu('option.operation')}>{operation}<span className='triangle'><Triangle/></span></p>
+							<ul>
+								<li 
+									onClick={() => setOperation('transcribe kana')}
+									className='transcribe'
+									>transcribe kana
+								</li>
+								<li 
+									onClick={() => setOperation('transform to kana')}
+									className='transform'
+									>transform to kana
+								</li>
+								<li 
+									onClick={() => setOperation('convert kana')}
+									className='convert'
+									>convert kana
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div className='options-container'>
+						<p onClick={() => toggleMenu('options-container')}>options<span className='arrow'><Arrow/></span></p>
 						<div>
-							<h1>Kana transformer</h1>
-							<div className='operation-container'>
-								<p>I want to</p>
-								<div className='option operation'>
-									<p onClick={() => toggleMenu('option.operation')}>{operation}<span className='triangle'><Triangle/></span></p>
+							<div className='non-transcribe'>
+								<p>{operation === 'convert kana' ? 'convert to' : 'transform to'}</p>
+								<div className='option kana'>
+									<p onClick={() => toggleMenu('option.kana')}>{kana}<span className='triangle'><Triangle/></span></p>
 									<ul>
 										<li 
-											onClick={() => setOperation('transcribe kana')}
-											className='transcribe'
-											>transcribe kana
+											onClick={() => setKana('hiragana')}
+											className='hiragana'
+											>hiragana
 										</li>
 										<li 
-											onClick={() => setOperation('transform to kana')}
-											className='transform'
-											>transform to kana
-										</li>
-										<li 
-											onClick={() => setOperation('convert kana')}
-											className='convert'
-											>convert kana
+											onClick={() => setKana('katakana')}
+											className='katakana'
+											>katakana
 										</li>
 									</ul>
 								</div>
 							</div>
-							<div className='options-container'>
-								<p onClick={() => toggleMenu('options-container')}>options<span className='arrow'><Arrow/></span></p>
-								<div>
-									<div className='non-transcribe'>
-										<p>{operation === 'convert kana' ? 'convert to' : 'transform to'}</p>
-										<div className='option kana'>
-											<p onClick={() => toggleMenu('option.kana')}>{kana}<span className='triangle'><Triangle/></span></p>
-											<ul>
-												<li 
-													onClick={() => setKana('hiragana')}
-													className='hiragana'
-													>hiragana
-												</li>
-												<li 
-													onClick={() => setKana('katakana')}
-													className='katakana'
-													>katakana
-												</li>
-											</ul>
-										</div>
-									</div>
-									<div className='non-convert'>
-										<p>{operation === 'transcribe kana' ? 'to language' : 'from language'}</p>
-										<div className='option language'>
-											<p onClick={() => toggleMenu('option.language')}>{language}<span className='triangle'><Triangle/></span></p>
-											<ul>
-												<li 
-													onClick={() => setLanguage('English')}
-													className='English'
-													>English
-												</li>
-												<li 
-													onClick={() => setLanguage('Russian')}
-													className='Russian'
-													>Russian
-												</li>
-											</ul>
-										</div>
-									</div>
-									<div className='non-convert'>
-										<p>using system</p>
-										<div className='option system'>
-											<p onClick={() => toggleMenu('option.system')}>{system}<span className='triangle'><Triangle/></span></p>
-											{ language === 'Russian' ? <ul>
-												<li 
-													onClick={() => setSystem('polivanov')}
-													className='polivanov'
-													>polivanov
-												</li>
-												<li 
-													onClick={() => setSystem('nonstandard-ru')}
-													className='nonstandard-ru'
-													>nonstandard-ru
-												</li>
-												<li 
-													onClick={() => setSystem('static-ru')}
-													className='static-ru'
-													>static-ru
-												</li>
-											</ul> :
-											<ul>
-												<li 
-													onClick={() => setSystem('hepburn')}
-													className='hepburn'
-													>hepburn
-												</li>
-												<li 
-													onClick={() => setSystem('kunrei-shiki')}
-													className='kunrei-shiki'
-													>kunrei-shiki
-												</li>
-												<li 
-													onClick={() => setSystem('nihon-shiki')}
-													className='nihon-shiki'
-													>nihon-shiki
-												</li>
-											</ul> }
-										</div>
-									</div>
-									<div className='non-transcribe non-convert'>
-										<p>guess</p>
-										<div className='option guess'>
-											<p onClick={() => toggleMenu('option.guess')}>{`${guess}`}<span className='triangle'><Triangle/></span></p>
-											<ul>
-												<li 
-													onClick={() => setGuess(false)}
-													className='false'
-													>false
-												</li>
-												<li 
-													onClick={() => setGuess(true)}
-													className='true'
-													>true
-												</li>
-											</ul>
-										</div>
-									</div>
+							<div className='non-convert'>
+								<p>{operation === 'transcribe kana' ? 'to language' : 'from language'}</p>
+								<div className='option language'>
+									<p onClick={() => toggleMenu('option.language')}>{language}<span className='triangle'><Triangle/></span></p>
+									<ul>
+										<li 
+											onClick={() => setLanguage('English')}
+											className='English'
+											>English
+										</li>
+										<li 
+											onClick={() => setLanguage('Russian')}
+											className='Russian'
+											>Russian
+										</li>
+									</ul>
 								</div>
 							</div>
-							<input
-								type='text'
-								onChange={(event) => setText(event.target.value)}
-								spellCheck={false}
-								placeholder={`Use ${
-										operation === 'transcribe kana' ? 'kana' :
-										operation === 'transform to kana' ? language :
-										operation === 'convert kana' ? kana === 'hiragana' ? 'katakana' : 'hiragana' : 
-										'something...'
-									}`
-								}
-							/>
-							<p className='result'>
-
-								{ text ?
-									operation === 'transcribe kana' ? fromKana(text, system) :
-									operation === 'transform to kana' ? toKana(text, {
-										system,
-										guess,
-										toKana: kana
-									}) :
-									operation === 'convert kana' ? convertKana(text, kana) : null
-									
-								: 'The result will appear here'}
-							</p>
-						</div>
-					</div>
-					<div className='links'>
-						<div>
-							<a href='https://github.com/18degrees/kana-transformer'>
-								<img src={process.env.PUBLIC_URL + '/images/github-mark.png'} alt='github logo'></img>
-							</a>
+							<div className='non-convert'>
+								<p>using system</p>
+								<div className='option system'>
+									<p onClick={() => toggleMenu('option.system')}>{system}<span className='triangle'><Triangle/></span></p>
+									{ language === 'Russian' ? <ul>
+										<li 
+											onClick={() => setSystem('polivanov')}
+											className='polivanov'
+											>polivanov
+										</li>
+										<li 
+											onClick={() => setSystem('nonstandard-ru')}
+											className='nonstandard-ru'
+											>nonstandard-ru
+										</li>
+										<li 
+											onClick={() => setSystem('static-ru')}
+											className='static-ru'
+											>static-ru
+										</li>
+									</ul> :
+									<ul>
+										<li 
+											onClick={() => setSystem('hepburn')}
+											className='hepburn'
+											>hepburn
+										</li>
+										<li 
+											onClick={() => setSystem('kunrei-shiki')}
+											className='kunrei-shiki'
+											>kunrei-shiki
+										</li>
+										<li 
+											onClick={() => setSystem('nihon-shiki')}
+											className='nihon-shiki'
+											>nihon-shiki
+										</li>
+									</ul> }
+								</div>
+							</div>
+							<div className='non-transcribe non-convert'>
+								<p>guess</p>
+								<div className='option guess'>
+									<p onClick={() => toggleMenu('option.guess')}>{`${guess}`}<span className='triangle'><Triangle/></span></p>
+									<ul>
+										<li 
+											onClick={() => setGuess(false)}
+											className='false'
+											>false
+										</li>
+										<li 
+											onClick={() => setGuess(true)}
+											className='true'
+											>true
+										</li>
+									</ul>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+				<div className='type-block'>
+					<textarea
+						className='input'
+						onChange={(event) => setInput(event.target.value)}
+						spellCheck={false}
+						placeholder={
+							`Use ${
+								operation === 'transcribe kana' ? 'kana' :
+								operation === 'transform to kana' ? language :
+								operation === 'convert kana' ? kana === 'hiragana' ? 'katakana' : 'hiragana' : 
+								'something...'
+							}`
+						}
+					/>
+					<textarea
+						className='result'
+						value={result}
+						spellCheck={false}
+						onChange={(event) => setResult(event.target.value)}
+					/>
+				</div>
+			</main>
+			<footer>
+				<div>
+					<a href='https://github.com/18degrees/kana-transformer'>
+						<img src={process.env.PUBLIC_URL + '/images/github-mark.png'} alt='github logo'></img>
+					</a>
+				</div>
+			</footer>
 			<style>
 				{`
 					.options-container.active > div {
@@ -320,11 +328,6 @@ function App() {
 							operation === 'transcribe kana' ? 165 : 90
 						}px
 					}
-					.result {
-						color: ${text ? '#4a4a4a' : '#a3a3a3'};
-						letter-spacing: ${text && operation !== 'transcribe kana' ? '2px' : 'unset'}
-					}
-
 					.non-transcribe {
 						display: ${operation === 'transcribe kana' ? 'none !important' : 'unset'}
 					}
@@ -335,7 +338,6 @@ function App() {
 						display: ${operation === 'transform to kana' ? 'none !important' : 'unset'}
 					}
 
-
 					@media (max-width: 425px) {
 						.options-container.active > div {
 							height: ${
@@ -344,7 +346,6 @@ function App() {
 							}px
 						}
 					}
-
 				`}
 			</style>
 		</>
