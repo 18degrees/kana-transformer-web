@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Triangle } from './components/Triangle'
 import { Arrow } from './components/Arrow'
 import { fromKana, toKana, convertKana } from 'kana-transformer'
+import packageJSON from '../package.json'
 
 type operationType = 'transcribe kana' | 'transform to kana' | 'convert kana'
 
@@ -13,6 +14,8 @@ type systemsEN = 'hepburn' | 'kunrei-shiki' | 'nihon-shiki'
 type systems = systemsEN | systemsRU
 
 function App() {
+	const libVersion = useRef(packageJSON.dependencies['kana-transformer'].slice(1))
+
 	const [operation, setOperation] = useState<operationType>('transcribe kana')
 
 	const [kana, setKana] = useState<kanaType>('hiragana')
@@ -165,7 +168,7 @@ function App() {
 
 	return (
 		<>
-			<header><h1>Kana transformer</h1></header>
+			<header><h1>Kana transformer</h1> v{libVersion.current}</header>
 			<main>
 				<div className='settings'>
 					<div className='operation-container'>
