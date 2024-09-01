@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/kana-transformer-web/static/css/main.d44ed6d7.css",
-    "main.js": "/kana-transformer-web/static/js/main.b7531320.js",
+    "main.js": "/kana-transformer-web/static/js/main.c6ae4f3d.js",
     "index.html": "/kana-transformer-web/index.html",
     "main.d44ed6d7.css.map": "/kana-transformer-web/static/css/main.d44ed6d7.css.map",
-    "main.b7531320.js.map": "/kana-transformer-web/static/js/main.b7531320.js.map"
+    "main.c6ae4f3d.js.map": "/kana-transformer-web/static/js/main.c6ae4f3d.js.map"
   },
   "entrypoints": [
     "static/css/main.d44ed6d7.css",
-    "static/js/main.b7531320.js"
+    "static/js/main.c6ae4f3d.js"
   ]
 }
